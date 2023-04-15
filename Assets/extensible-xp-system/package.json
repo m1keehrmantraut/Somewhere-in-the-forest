@@ -1,0 +1,27 @@
+{
+  "name": "com.silent-creativity.extensible-xp-system",
+  "version": "1.0.4",
+  "displayName": "Extensible XP System",
+  "description": "A simple XP system that you can expand upon. Quickly change XP formulas and how the XP should be calculated.\n\n- Five different XP formulas available.\n- Two different XP grant methods available.\n- Two different XP receive methods available (where XP is saved).",
+  "unity": "2019.1",
+  "dependencies": {},
+  "keywords": [
+    "experience",
+    "xp",
+    "system",
+    "integration",
+    "extensible"
+  ],
+  "author": {
+    "name": "Silent Creativity",
+    "email": "support@saucy.se",
+    "url": "https://assetstore.unity.com/publishers/43840"
+  },
+  "samples": [
+    {
+      "displayName": "Example",
+      "description": "Example assets.",
+      "path": "Samples~/Example"
+    }
+  ]
+}

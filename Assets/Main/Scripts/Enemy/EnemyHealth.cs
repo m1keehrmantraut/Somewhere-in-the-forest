@@ -1,12 +1,18 @@
+using System;
+using Saucy.Modules.XP;
 using UnityEngine;
-
 public class EnemyHealth : MonoBehaviour
 {
-    public int healthEnemy = 100; 
-    [SerializeField] private LevelDisplay levelDisplay;
+    public int healthEnemy = 100;
+    private XPGranter enemyXP;
 
     [SerializeField] GameObject deathEffect;
 
+    public void Start()
+    {
+        enemyXP = gameObject.GetComponent<XPGranter>();
+    }
+    
     public void  TakeDamageEnemy (int damage)
     {
         healthEnemy -= damage;
@@ -18,8 +24,8 @@ public class EnemyHealth : MonoBehaviour
     }
 
     void DieEnemy ()
-    {
-        levelDisplay.levelSystem.AddExperience(100);
+    {    
+        enemyXP.GrantXP();
         Destroy(gameObject);
     }
 }

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1137636477706082692}
   - component: {fileID: 1137636477706082690}
   - component: {fileID: 1137636477706082689}
+  - component: {fileID: 1398599645447594918}
   m_Layer: 6
   m_Name: ShootingEnemy
   m_TagString: Enemy
@@ -202,6 +203,22 @@ MonoBehaviour:
   followEnabled: 1
   jumpEnabled: 0
   directionLookEnabled: 1
+--- !u!114 &1398599645447594918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137636477706082715}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38d7a7a71f952de49810940c15560a0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  experience: 10
+  useInterval: 0
+  interval: 1
+  xpGrantMethod: {fileID: 11400000, guid: f7ca5c99fcafd224b8e376620ecd9d50, type: 2}
 --- !u!1 &1137636477751374071
 GameObject:
   m_ObjectHideFlags: 0
