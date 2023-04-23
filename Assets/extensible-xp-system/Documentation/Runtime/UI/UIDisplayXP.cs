@@ -33,7 +33,7 @@ namespace Saucy.Modules.XP {
     [SerializeField] private Color listBackgroundColorOdd = Color.gray;
 
     // Reference to the XP calculation method for easy access.
-    private DataXPReceive playerSavedXP;
+    [SerializeField] private DataXPReceive playerSavedXP;
 
     private void Awake () {
       // Get a reference to the XP calculation method being used.
