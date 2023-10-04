@@ -129,7 +129,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.5
   m_LinearDrag: 1.5
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -151,6 +151,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthEnemy: 100
+  OnTouched:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   deathEffect: {fileID: 5546058766984357695, guid: 6de6be0dc87e8714b8614aecf67d1188, type: 3}
 --- !u!114 &1137636477706082690
 MonoBehaviour:

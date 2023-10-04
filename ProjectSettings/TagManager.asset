@@ -8,6 +8,14 @@ TagManager:
   - HealthPotion
   - Enemy
   - Obstacle
+  - Sound
+  - HitEffect
+  - ShootEffect
+  - AttackPoint
+  - ShootPoint
+  - ShootButton
+  - Pet
+  - Sword
   layers:
   - Default
   - TransparentFX
@@ -17,9 +25,9 @@ TagManager:
   - UI
   - Enemy
   - Obstacles
+  - Pet
   - 
-  - 
-  - 
+  - 'Post Processing '
   - Minimap
   - 
   - 
@@ -42,6 +50,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2124304861
+    locked: 0
+  - name: Shadow
+    uniqueID: 3638507191
+    locked: 0
+  - name: Foreground
+    uniqueID: 2019215721
+    locked: 0
+  - name: UI
+    uniqueID: 1494217351
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

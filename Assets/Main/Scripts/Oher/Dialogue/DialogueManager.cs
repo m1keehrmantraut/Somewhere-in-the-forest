@@ -4,17 +4,23 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class DialogueManager : MonoBehaviour
 {
+    public UnityEvent StartEvent;
+    
     private Queue<string> sentences;
 
     [SerializeField]
     private TextMeshProUGUI dialogueText;
     [SerializeField]
     private TextMeshProUGUI nameText;
-    
-    public Animator animator;
+
+    [SerializeField]
+    private GameObject DialoguePanel;
+
+    public bool haveEvent = false;
     
     public void Start()
     {
@@ -23,8 +29,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
-        animator.SetBool("IsOpen", true);
-        
+        DialoguePanel.SetActive(true);
         nameText.text = dialogue.name;
         
         sentences.Clear();
@@ -41,7 +46,12 @@ public class DialogueManager : MonoBehaviour
     {
         if (sentences.Count == 0)
         {
-            EndDialogue();
+            CloseDialoguePanel();
+            if (!haveEvent)
+            {
+                StartEvent.Invoke();
+                haveEvent = true;
+            }
             return;
         }
 
@@ -60,9 +70,10 @@ public class DialogueManager : MonoBehaviour
             yield return null;
         }
     }
-    
-    public void EndDialogue()
+
+    public void CloseDialoguePanel()
     {
-        animator.SetBool("IsOpen", false);
+        DialoguePanel.SetActive(false);
     }
+    
 }

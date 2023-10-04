@@ -20,7 +20,7 @@ public class DialogueNPC : MonoBehaviour
         else
         {
             dialogueButton.SetActive(false);
-            manager.animator.SetBool("IsOpen", false);
+            manager.CloseDialoguePanel();
         }
     }
     

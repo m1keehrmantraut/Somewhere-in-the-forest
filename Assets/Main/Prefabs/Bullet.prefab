@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 52384886696703931}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.01, y: 1.66, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,10 +76,10 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b8769e86abecf91459ff98a5461ab7fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
-  m_FlipY: 0
+  m_FlipY: 1
   m_DrawMode: 0
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
@@ -121,8 +121,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.35549426}
-  m_Size: {x: 1, y: 1.2890115}
+  m_Offset: {x: 0.0020127892, y: -0.008406162}
+  m_Size: {x: 0.5773128, y: 1.0201278}
   m_Direction: 0
 --- !u!114 &3153210331347690553
 MonoBehaviour:
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   distance: 0
-  damage: 50
+  enemyDamage: 10
   whatIsSolid:
     serializedVersion: 2
     m_Bits: 192

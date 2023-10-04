@@ -5,7 +5,7 @@ public class ManaBar : MonoBehaviour
 {
     [SerializeField] private Slider slider;
 
-    private void SetMaxMana(float mana)
+    public void SetMaxMana(float mana)
     {
         slider.maxValue = mana;
         slider.value = mana;

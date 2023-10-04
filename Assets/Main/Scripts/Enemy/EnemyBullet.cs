@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
 {
-    public int enemyDamage = 50;
+    public int enemyDamage = 10;
     public GameObject hitEffect;
     public GameObject impactEffect; 
     

@@ -10,8 +10,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Start () 
     {
-        currentHealth = maxHealth;    
-        healthBar.SetMaxHealth(maxHealth);
+        UpdateMaxHealth();
     }
 
     public void TakeDamage (int damage)
@@ -24,5 +23,10 @@ public class PlayerHealth : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         }
     }
-    
+
+    public void UpdateMaxHealth()
+    {
+        currentHealth = maxHealth;  
+        healthBar.SetMaxHealth(maxHealth);
+    }
 }

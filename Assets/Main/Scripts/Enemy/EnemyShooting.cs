@@ -62,4 +62,9 @@ public class EnemyShooting : MonoBehaviour
             }
         }
     }
+
+    public void StopShooting()
+    {
+        shootStatus = false;
+    }
 }

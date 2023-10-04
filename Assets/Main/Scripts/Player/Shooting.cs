@@ -4,29 +4,36 @@ using UnityEngine;
 
 public class Shooting : MonoBehaviour
 {
-    private const int maxBulletCount = 100;
+    private float maxBulletCount = 100f;
     
+    [Header("Shoot Logic")]
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform shotPoint;
     [SerializeField] private ManaBar manaBar;
     [SerializeField] private LayerMask enemyLayers;
+    
+    [Header("Sounds")]
+    [SerializeField] private AudioClip hitSound;
+    private AudioSource audioSource;
 
+    private GameObject enemy;
+    
     private Vector3 difference;
-
-    private float distance = 20f;
+    private float distance = 10f;
     private float rotZ;
     private float offset = -90f;
 
-    private GameObject enemy;
-
-    private float bulletCount = 100f;
-    private float timeBtwShots = 0.7f;
+    private float bulletCount;
+    private float timeBtwShots = 0.8f;
     private float time = 10f;
+    
     private bool shootStatus = true;
 
-    private void Start()
+    private void Awake()
     {
-        enemy = FindClosestObjectInRange();
+        FindClosestObjectInRange();
+        audioSource = GameObject.FindGameObjectWithTag("ShootEffect").GetComponent<AudioSource>();
+        bulletCount = maxBulletCount;
     }
     
 
@@ -56,22 +63,28 @@ public class Shooting : MonoBehaviour
     {
         if (enemy != null && Vector2.Distance(enemy.transform.position, shotPoint.position) > 5f)
         {
-            enemy = FindClosestObjectInRange();
+            FindClosestObjectInRange();
         }
         
-        if (shootStatus && bulletCount > 19 && enemy != null)
+        if (shootStatus && bulletCount > 19f && enemy != null)
         {
             Instantiate(bullet, shotPoint.position, shotPoint.rotation);
-            bulletCount -= 20;
+            audioSource.PlayOneShot(hitSound); 
+            bulletCount -= 20f;
             manaBar.SetMana(bulletCount);
             StartCoroutine(ShootTime(timeBtwShots));
         }
-
-        enemy = FindClosestObjectInRange();
+    }
+    
+    public void IncreaseMana(float mana)
+    {
+        maxBulletCount += mana;
+        bulletCount = maxBulletCount;
+        manaBar.SetMaxMana(maxBulletCount);
     }
     
     // Это метод для поиска ближайшего объекта в радиусе взгляда. 
-    private GameObject FindClosestObjectInRange()
+    public void FindClosestObjectInRange()
     {
         // Получаем массив объектов в радиусе взгляда
         var objectsInArea = Physics2D.OverlapCircleAll(shotPoint.position, distance, enemyLayers);
@@ -90,7 +103,7 @@ public class Shooting : MonoBehaviour
             }
         }
  
-        return closestObject;
+        enemy = closestObject;
+        
     }
-
 }

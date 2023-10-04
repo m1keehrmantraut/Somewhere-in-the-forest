@@ -1,14 +1,15 @@
+using System;
 using UnityEngine;
 using Pathfinding;
 
 public class EnemyAI : MonoBehaviour
 {
-    /*public Transform target;
+    /*public Transform currentTarget;
 
     public float speed = 200f;
     public float nextWaypointDistance = 3f;
     public float stoppingDistance;
-    public float sekeerDistance;
+    public float seekerDistance;
 
     Path path;
     int currentWaypoint = 0;
@@ -27,9 +28,9 @@ public class EnemyAI : MonoBehaviour
 
     void UpdatePath()
     {
-        if (seeker.IsDone() && Vector2.Distance(rb.position, target.position) < sekeerDistance)
+        if (seeker.IsDone() && Vector2.Distance(rb.position, currentTarget.position) < seekerDistance)
         {
-            seeker.StartPath(rb.position, target.position, OnPathComplete);
+            seeker.StartPath(rb.position, currentTarget.position, OnPathComplete);
         }
         else
         {
@@ -63,7 +64,7 @@ public class EnemyAI : MonoBehaviour
             reachedEndOfPath = false;
         }
 
-        if (Vector2.Distance(transform.position, target.position) > stoppingDistance)
+        if (Vector2.Distance(transform.position, currentTarget.position) > stoppingDistance)
         {
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
             Vector2 force = direction * speed * Time.deltaTime;
@@ -72,7 +73,7 @@ public class EnemyAI : MonoBehaviour
             
         }
 
-        else if(Vector2.Distance(transform.position, target.position) < stoppingDistance) 
+        else if(Vector2.Distance(transform.position, currentTarget.position) < stoppingDistance) 
         {
             transform.position = this.transform.position;
         }
@@ -87,6 +88,7 @@ public class EnemyAI : MonoBehaviour
     public Transform target;
     public float activateDistance = 50f;
     public float pathUpdateSeconds = 0.5f;
+    public float distanceBtwTargets = 10f;
 
     [Header("Physics")]
     public float speed = 200f;
@@ -99,12 +101,26 @@ public class EnemyAI : MonoBehaviour
     public bool followEnabled = true;
     public bool jumpEnabled = false;
     public bool directionLookEnabled = true;
-
+    public bool meleeMode;
+    
     private Path path;
     private int currentWaypoint = 0;
     RaycastHit2D isGrounded;
     Seeker seeker;
     Rigidbody2D rb;
+
+    private bool isDead = false;
+
+    [SerializeField] private Animator _animator;
+
+    [SerializeField] private Transform attackPoint;
+
+    private float moveSpeed;
+
+    public void Awake()
+    {
+        target = GameObject.FindWithTag("Player").GetComponent<Transform>();
+    }
 
     public void Start()
     {
@@ -116,7 +132,11 @@ public class EnemyAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (TargetInDistance() && followEnabled)
+        moveSpeed = rb.velocity.magnitude;
+        
+        _animator.SetFloat("Speed", moveSpeed);
+
+        if (TargetInDistance() && followEnabled && !TargetOutField())
         {
             PathFollow();
         }
@@ -124,7 +144,7 @@ public class EnemyAI : MonoBehaviour
 
     private void UpdatePath()
     {
-        if (followEnabled && TargetInDistance() && seeker.IsDone())
+        if (followEnabled && TargetInDistance() && seeker.IsDone() && !TargetOutField() && !isDead)
         {
             seeker.StartPath(rb.position, target.position, OnPathComplete);
         }
@@ -159,15 +179,26 @@ public class EnemyAI : MonoBehaviour
                 rb.AddForce(Vector2.up * speed * jumpModifier);
             }
         }
-
+        
+        
+        
         // Movement
         rb.AddForce(force);
-
         // Next Waypoint
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
         if (distance < nextWaypointDistance)
         {
             currentWaypoint++;
+        }
+        
+        if (rb.velocity.x < 0.1f)
+        {
+            attackPoint.localScale = new Vector3(-.3f, .8f, 0f);
+            gameObject.transform.localScale = new Vector3(-1f, 1f, 1f);
+        } else if (rb.velocity.x > -0.1f)
+        {
+            attackPoint.localScale = new Vector3(.3f, .8f, 0f);
+            gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
         }
     }
 
@@ -176,6 +207,16 @@ public class EnemyAI : MonoBehaviour
         return Vector2.Distance(transform.position, target.transform.position) < activateDistance;
     }
 
+    private bool TargetOutField()
+    {
+        return Vector2.Distance(transform.position, target.transform.position) < distanceBtwTargets;
+    }
+
+    public void IsDead()
+    {
+        isDead = true;
+    }
+    
     private void OnPathComplete(Path p)
     {
         if (!p.error)
